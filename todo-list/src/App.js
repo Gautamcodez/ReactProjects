@@ -1,7 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+
+  const [inputList, setInputList] = useState(" ");
+  const [items, setItems] = useState([]);
+
+  const itemEvent = (event) =>{
+    setInputList(event.target.value);
+  };
+
+  const listOfItems = () =>{
+    setItems((oldItems) => {
+      return [...oldItems, inputList];
+    });
+    setInputList('')
+  }
+
   return (
     <>
       <div className='main_div'>
@@ -9,11 +25,13 @@ function App() {
       <br/>
       <h1>ToDO List</h1>
       <br />
-      <input type= 'text' placeholder='Add items' />
-      <button>+</button>
+      <input type= 'text' placeholder='Add items' onChange={itemEvent} value={inputList} />
+      <button onClick={listOfItems}>+</button>
 
       <ol>
-        <li>Buy a apple</li>
+        {items.map((itemval)=>{
+          return <li>{itemval}</li>
+        })}
       </ol>
 
       </div>
