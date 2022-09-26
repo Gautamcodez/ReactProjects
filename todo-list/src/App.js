@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import ToDoList from './ToDoList';
 
 function App() {
 
@@ -18,6 +18,15 @@ function App() {
     setInputList('')
   }
 
+  const deleteItems = (id)=>{
+    // console.log("item Deleted");
+    setItems((oldItems)=>{
+      return oldItems.filter((arrElem, index)=>{
+      return index !== id;
+    });
+    });
+};
+
   return (
     <>
       <div className='main_div'>
@@ -29,8 +38,13 @@ function App() {
       <button onClick={listOfItems}>+</button>
 
       <ol>
-        {items.map((itemval)=>{
-          return <li>{itemval}</li>
+        {items.map((itemval, index)=>{
+          return <ToDoList 
+          key = {index}
+          id={index}
+          text={itemval} 
+          onSelect = {deleteItems}
+          />;
         })}
       </ol>
 
